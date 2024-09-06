@@ -9,6 +9,9 @@
 # https://dl.trimble.com/osg/survey/gpsconfigfiles/21.9.27/trimblecfgupdate.exe
 # https://trl.trimble.com/dscgi/ds.py/Get/File-869391/convertToRinex314.msi
 #
+# New version !!  (PS 240906)
+# https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi
+#
 # if still available at time when you'll build the image, the binaries will be
 # automatically downloaded. Otherwise you may need to get the manually from
 # another source and modify the lines 213 & 214 of this file accordingly
@@ -211,7 +214,11 @@ RUN ldconfig
 COPY download_mono.sh /tmp/download_mono.sh
 
 ADD --chown=${USER_UID}:${USER_GID} https://dl.trimble.com/osg/survey/gpsconfigfiles/21.9.27/trimblecfgupdate.exe /tmp
-ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-869391/convertToRinex314.msi /tmp
+# old line with version convertToRinex314
+# ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-869391/convertToRinex314.msi /tmp
+# new line with version convertToRinex315 (PS 240908)
+# https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi
+ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi /tmp
 
 RUN chmod 755 /tmp/download_mono.sh \
     && /tmp/download_mono.sh "$([[ "$(${WINE_INSTALL_PREFIX}/bin/wine --version)" =~ .*([0-9]{1}.[0-9]{2}) ]] &&  echo ${BASH_REMATCH[1]})" 
