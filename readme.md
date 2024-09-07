@@ -1,6 +1,6 @@
 ## Introduction 
 
-This is the IPGP-OVS's maintened fork of the Docker+Wine (`trm2rinex`) wrapper for Trimble convertToRinex tool 🛰️ 🌐 🐋 🍷  
+This is the IPGP-OVS's maintened fork of the Docker+Wine (`trm2rinex`) wrapper for Trimble convertToRinex tool ??????? ???? ???? ????  
 
 The original repository made by @Matioupi is available at: https://github.com/Matioupi/trm2rinex-docker
 
@@ -116,6 +116,6 @@ mkdir out
 ```
 will solve the problem.    
 
-#### Changelog
+## Changelog
 * 2024-09-07 change the wine repository for https://gitlab.winehq.org/wine/wine.git
 * 2024-09-06 Change for `ConvertToRinex` v3.15
