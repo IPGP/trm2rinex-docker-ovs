@@ -1,6 +1,6 @@
 ## Introduction 
 
-This is the IPGP-OVS's maintened fork of the Docker+Wine (`trm2rinex`) wrapper for Trimble convertToRinex tool ??????? ???? ???? ????  
+This is the IPGP-OVS's maintened fork of the Docker+Wine (`trm2rinex`) wrapper for Trimble `ConvertToRinex` tool  🛰️ 🌐 🐋 🍷  
 
 The original repository made by @Matioupi is available at: https://github.com/Matioupi/trm2rinex-docker
 
