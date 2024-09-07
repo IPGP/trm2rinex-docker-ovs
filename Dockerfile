@@ -92,7 +92,7 @@ RUN dpkg --add-architecture i386 \
     && rm -rf /var/lib/apt/lists/* 
   
 # Checkout Wine Release 6.22    
-RUN git clone git://source.winehq.org/git/wine.git ~/wine-dirs/wine-source \
+RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
     && cd ~/wine-dirs/wine-source \
     && git checkout ${WINE_TAG}
 
