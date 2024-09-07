@@ -39,7 +39,7 @@ git clone https://github.com/Matioupi/trm/trm2rinex-docker
 
 ### build
 ```
-cd trm2rinex-docker
+cd trm2rinex-docker-ovs
 docker build -t trm2rinex:cli-light .
 ```
 running it in *sudo* mode might be better
@@ -109,12 +109,11 @@ Converting MAGC320b.2021.rt27...Error: CrinexFile - System.UnauthorizedAccessExc
   at trimble.rinex.CrinexFile..ctor (System.String inputFilePath, System.IO.FileMode mode) [0x00176] in <6b991ac620904a08a4ad53d3cafee6d1>:0 : Z:\data\MAGC320b.2021.21n using mode: Create
 ```
 #### Solution
-The problem is that the output file is created in a subfolder `out` within the current folder (`$(pwd)`), but this `out` folder 
-does not exists or is not writable. Thus a simple
+The problem occurs because the output file is about to be created in a subfolder `out` within the current directory (`$(pwd)`), but this `out` folder does not exists or is not writable. Thus a simple
 ```commandline
 mkdir out
 ```
-will solve the problem.    
+within the current/working directory should solve the problem.    
 
 ## Changelog
 * 2024-09-07 change the wine repository for https://gitlab.winehq.org/wine/wine.git
