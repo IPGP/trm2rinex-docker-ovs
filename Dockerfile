@@ -231,7 +231,8 @@ RUN wine /tmp/trimblecfgupdate.exe /s /x /b"Z:\\tmp" /v"/qn" 2>/dev/null \
     && sleep ${DELAY_BETWEEN_INSTALL} \
     && wine cmd /c "msiexec /i Z:\\tmp\\TrimbleCFGUpdate.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null \
     && sleep ${DELAY_BETWEEN_INSTALL} \
-    && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex314.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
+#   && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex314.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
+    && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex315.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
 
 USER root
 COPY clean.sh /home/${USER_NAME}/clean.sh
