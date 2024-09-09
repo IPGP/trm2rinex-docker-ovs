@@ -15,36 +15,36 @@ See also the README of the original repository for more details: [readme_origina
 This memo is about the installation of the `trm2rinex` software in a Docker container.   
 The software is a Windows software, so it is run in a Wine environment.
 
-### Prerequise: install Docker (on your Ubuntu)
+### Prerequisite: install Docker (on your Ubuntu)
 ```
 https://www.simplilearn.com/tutorials/docker-tutorial/how-to-install-docker-on-ubuntu
 ```
-### create docker group
+### Create Docker group
 ```
 sudo addgroup --system docker
 sudo adduser $USER docker
 newgrp docker
 ```
 
-### clone
+### Clone the IPGP-OVS forked repository
 ```
 cd $HOME/your/favorite/folder
-git clone https://github.com/Matioupi/trm/trm2rinex-docker
+git clone https://github.com/IPGP/trm2rinex-docker-ovs
 ```
 
-original repository (for legacy):
+original repository (for indicative legacy purposes):
 ```
-git clone https://github.com/Matioupi/trm/trm2rinex-docker
+git clone https://github.com/Matioupi/trm2rinex-docker
 ```
 
-### build
+### Build
 ```
 cd trm2rinex-docker-ovs
 docker build -t trm2rinex:cli-light .
 ```
 running it in *sudo* mode might be better
 
-### clean useless Docker images
+### Clean useless Docker images
 at the end of the installation
 ```
 docker image ls
