@@ -61,7 +61,7 @@ docker image rm 925d947bf045
 cd <...>/trm2rinex-docker
 docker run --rm -v "$(pwd):/data" trm2rinex:cli-light data/MAGC320b.2021.rt27 -p data/out
 ```
-## Issues
+## Troubleshooter
 
 ### Issue about removing folders during Docker compilation
 #### Error
