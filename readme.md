@@ -2,7 +2,8 @@
 
 This is the IPGP-OVS's maintened fork of the Docker+Wine (`trm2rinex`) wrapper for Trimble `ConvertToRinex` tool  🛰️ 🌐 🐋 🍷  
 
-The original repository made by _Matioupi_ is available at: https://github.com/Matioupi/trm2rinex-docker
+The original repository made by _Matioupi_ is available at: https://github.com/Matioupi/trm2rinex-docker  
+(Many thanks to him!)
 
 From now on (September 2024), we must fork the original repository, because it is not maintained anymore and related software has evolved.
 
