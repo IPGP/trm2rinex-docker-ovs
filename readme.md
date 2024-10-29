@@ -11,9 +11,16 @@ Maintainer of this fork: Pierre Sakic (sakic@ipgp.fr)
 
 See also the README of the original repository for more details: [readme_original.md](readme_original.md)
 
+## Changelog
+* 2024-10-29: Back to `ConvertToRinex` v3.14.  
+For some files, v3.15 leads to error:  
+`t01dll assembly:<unknown assembly> type:<unknown type> member:(null)`
+* 2024-09-07: Change the wine repository for https://gitlab.winehq.org/wine/wine.git
+* 2024-09-06: Change for `ConvertToRinex` v3.15
+
 ## Installation
 
-This memo is about the installation of the `trm2rinex` software in a Docker container.   
+This memo is about installing the `trm2rinex` software in a Docker container.   
 The software is a Windows software, so it is run in a Wine environment.
 
 ### Prerequisite: install Docker (on your Ubuntu)
@@ -125,10 +132,3 @@ Then, define your `out` bound volume somewhere else:
 ```
 -v ${PWD}:/inp -v /a/different/place/converted:/out
 ```
-
-
-## Changelog
-* 2024-10-29: Back to `ConvertToRinex` v3.14. 
-v3.15 leads to error `t01dll assembly:<unknown assembly> type:<unknown type> member:(null)`
-* 2024-09-07: Change the wine repository for https://gitlab.winehq.org/wine/wine.git
-* 2024-09-06: Change for `ConvertToRinex` v3.15
