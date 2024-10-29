@@ -128,5 +128,7 @@ Then, define your `out` bound volume somewhere else:
 
 
 ## Changelog
+* 2024-10-29: Back to `ConvertToRinex` v3.14. 
+v3.15 leads to error `t01dll assembly:<unknown assembly> type:<unknown type> member:(null)`
 * 2024-09-07: Change the wine repository for https://gitlab.winehq.org/wine/wine.git
 * 2024-09-06: Change for `ConvertToRinex` v3.15
