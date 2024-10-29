@@ -109,12 +109,23 @@ Converting MAGC320b.2021.rt27...Error: CrinexFile - System.UnauthorizedAccessExc
   at System.IO.File.CreateText (System.String path) [0x0000e] in <bee01833bcad4475a5c84b3c3d7e0cd6>:0 
   at trimble.rinex.CrinexFile..ctor (System.String inputFilePath, System.IO.FileMode mode) [0x00176] in <6b991ac620904a08a4ad53d3cafee6d1>:0 : Z:\data\MAGC320b.2021.21n using mode: Create
 ```
-#### Solution
+#### Solution 1
 The problem occurs because the output file is about to be created in a subfolder `out` within the current directory (`$(pwd)`), but this `out` folder does not exists or is not writable. Thus a simple
 ```commandline
 mkdir out
 ```
 within the current/working directory should solve the problem.    
+
+#### Solution 2
+You will continue to face this error when you try to mount two volumes, one for the input, the other for the output, and if one bound folder is included in the other, e.g.:
+```
+-v ${PWD}:/inp -v ${PWD}/converted:/out
+```
+Then, define your `out` bound volume somewhere else:
+```
+-v ${PWD}:/inp -v /a/different/place/converted:/out
+```
+
 
 ## Changelog
 * 2024-09-07: Change the wine repository for https://gitlab.winehq.org/wine/wine.git
