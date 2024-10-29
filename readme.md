@@ -117,7 +117,7 @@ mkdir out
 within the current/working directory should solve the problem.    
 
 #### Solution 2
-You will continue to face this error when you try to mount two volumes, one for the input, the other for the output, and if one bound folder is included in the other, e.g.:
+You will continue to face this error when you try to mount two volumes, one for the input (`inp`), the other for the output (`out`), and if one bound folder is included in the other, e.g.:
 ```
 -v ${PWD}:/inp -v ${PWD}/converted:/out
 ```
