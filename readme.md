@@ -132,3 +132,9 @@ Then, define your `out` bound volume somewhere else:
 ```
 -v ${PWD}:/inp -v /a/different/place/converted:/out
 ```
+
+#### Solution 3
+Give full access right to your `out` folder
+```
+chmod 777 out
+```
