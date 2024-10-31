@@ -52,7 +52,10 @@
 ARG BASE_IMAGE="ubuntu"
 ARG TAG="focal"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
-ARG WINE_TAG="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
+# Wine v6.22 (original)
+# ARG WINE_TAG="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
+# Wine v9.20 (PS 20241031)
+ARG WINE_TAG="3a6e9365336304b4d7eb4d66aef959f67361cc1f"
 ARG USER_NAME=trm2rinex
 ARG USER_PASSWD=trm2rinex
 ARG USER_UID=1000
@@ -222,10 +225,10 @@ ADD --chown=${USER_UID}:${USER_GID} https://dl.trimble.com/osg/survey/gpsconfigf
 # ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-869391/convertToRinex314.msi /tmp
 # *** new URL for v3.14 convertToRinex314 (PS 241029)
 # https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi
-ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi /tmp
+# ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi /tmp
 # *** URL for v3.15 convertToRinex315 (PS 240908)
 # https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi
-# ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi /tmp
+ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi /tmp
 
 RUN chmod 755 /tmp/download_mono.sh \
     && /tmp/download_mono.sh "$([[ "$(${WINE_INSTALL_PREFIX}/bin/wine --version)" =~ .*([0-9]{1}.[0-9]{2}) ]] &&  echo ${BASH_REMATCH[1]})" 
