@@ -53,9 +53,13 @@ ARG BASE_IMAGE="ubuntu"
 ARG TAG="focal"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
 # Wine v6.22 (original)
-# ARG WINE_TAG="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
+#ARG WINE_TAG="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
 # Wine v9.20 (PS 20241031)
-ARG WINE_TAG="3a6e9365336304b4d7eb4d66aef959f67361cc1f"
+# ARG WINE_TAG="3a6e9365336304b4d7eb4d66aef959f67361cc1f"
+# Wine v8.21 (PS 20241031) 
+# ARG WINE_TAG="13c43cf3d06178dc39d98981f55d27e3cbd79ad0" 
+# Wine v7.22 (PS 20241031) 
+ARG WINE_TAG="20d86f34a066657048610803e7143232efa6c0d3" 
 ARG USER_NAME=trm2rinex
 ARG USER_PASSWD=trm2rinex
 ARG USER_UID=1000
@@ -228,6 +232,7 @@ ADD --chown=${USER_UID}:${USER_GID} https://dl.trimble.com/osg/survey/gpsconfigf
 # ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi /tmp
 # *** URL for v3.15 convertToRinex315 (PS 240908)
 # https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi
+# !!! change also the MSI path in the next block  (line 250) !!!
 ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi /tmp
 
 RUN chmod 755 /tmp/download_mono.sh \
@@ -242,9 +247,9 @@ RUN wine /tmp/trimblecfgupdate.exe /s /x /b"Z:\\tmp" /v"/qn" 2>/dev/null \
     && wine cmd /c "msiexec /i Z:\\tmp\\TrimbleCFGUpdate.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null \
     && sleep ${DELAY_BETWEEN_INSTALL} \
 #   line for v3.14
-    && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex314.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
+#   && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex314.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
 #   line for v3.15
-#   && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinexv3.15.0.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
+    && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinexv3.15.0.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
 
 USER root
 COPY clean.sh /home/${USER_NAME}/clean.sh
