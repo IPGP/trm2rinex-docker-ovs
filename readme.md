@@ -48,9 +48,9 @@ git clone https://github.com/Matioupi/trm2rinex-docker
 ### Build
 ```
 cd trm2rinex-docker-ovs
-docker build -t trm2rinex:cli-light .
+docker build --build-arg USER_UID=$(id -u) --build-arg USER_UID=$(id -g) -t trm2rinex:cli-light .
 ```
-running it in *sudo* mode might be better
+See troubleshooter for the user & group ID question
 
 ### Clean useless Docker images
 at the end of the installation
@@ -138,3 +138,26 @@ Give full access right to your `out` folder
 ```
 chmod 777 out
 ```
+
+### Change user and group ID
+This is a facultative step, but we recommend to change the `USER_UID` & `USER_GID` when building the docker
+
+#### Solution 1
+docker build --build-arg USER_UID=$(id -u) --build-arg USER_UID=$(id -g) -t trm2rinex:cli-light .
+
+#### Solution 2
+Change the values defined in the `Dockerfile` preamble
+
+* get the right user & group ID values:
+```
+id -u
+id -g
+```
+* In the `Dockerfile` change the values of:
+```
+ARG USER_UID=1000
+ARG USER_GID=100
+```
+
+
+
