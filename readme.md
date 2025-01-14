@@ -12,6 +12,7 @@ Maintainer of this fork: Pierre Sakic (sakic@ipgp.fr)
 See also the README of the original repository for more details: [readme_original.md](readme_original.md)
 
 ## Changelog
+* 2025-01-03: better handling of the user & group ID
 * 2024-10-29: Back to `ConvertToRinex` v3.14.  
 For some files, v3.15 leads to error:  
 `t01dll assembly:<unknown assembly> type:<unknown type> member:(null)`
@@ -23,10 +24,16 @@ For some files, v3.15 leads to error:
 This memo is about installing the `trm2rinex` software in a Docker container.   
 The software is a Windows software, so it is run in a Wine environment.
 
-### Prerequisite: install Docker (on your Ubuntu)
+### Prerequisite: install Docker 
+#### on Ubuntu
 ```
 https://www.simplilearn.com/tutorials/docker-tutorial/how-to-install-docker-on-ubuntu
 ```
+#### on Debian
+```
+https://linuxiac.com/how-to-install-docker-on-debian-12-bookworm/
+```
+
 ### Create Docker group
 ```
 sudo addgroup --system docker
@@ -48,9 +55,9 @@ git clone https://github.com/Matioupi/trm2rinex-docker
 ### Build
 ```
 cd trm2rinex-docker-ovs
-docker build -t trm2rinex:cli-light .
+docker build --build-arg USER_UID=$(id -u) -t trm2rinex:cli-light .
 ```
-running it in *sudo* mode might be better
+See troubleshooter for the user & group ID question
 
 ### Clean useless Docker images
 at the end of the installation
@@ -104,7 +111,7 @@ RUN chmod 755 /home/${USER_NAME}/clean.sh
 ### Issue about converting the files
 #### Error 
 ```
-klein@zoisite:~/SOFT/trm2rinex-docker$ docker run --rm -v "$(pwd):/data" trm2rinex:cli-light data/MAGC320b.2021.rt27 data/out
+user@computer:~/SOFT/trm2rinex-docker$ docker run --rm -v "$(pwd):/data" trm2rinex:cli-light data/MAGC320b.2021.rt27 data/out
 Scanning data/MAGC320b.2021.rt27...Complete!
 Converting MAGC320b.2021.rt27...Error: CrinexFile - System.UnauthorizedAccessException: Access to the path "Z:\data\MAGC320b.2021.21n" is denied.
   at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.Boolean anonymous, System.IO.FileOptions options) [0x0019e] in <bee01833bcad4475a5c84b3c3d7e0cd6>:0 
@@ -138,3 +145,40 @@ Give full access right to your `out` folder
 ```
 chmod 777 out
 ```
+
+### Change user and group ID
+This is a facultative step, but we recommend to change the `USER_UID` & `USER_GID` when building the docker
+
+#### Solution 1
+```
+docker build --build-arg USER_UID=$(id -u) -t trm2rinex:cli-light .
+```
+However, adding the group with `--build-arg USER_GID=$(id -g)` is not recommended
+
+
+#### Solution 2
+Change the values defined in the `Dockerfile` preamble
+
+* get the right user & group ID values:
+```
+id -u
+```
+* In the `Dockerfile` change the values of:
+```
+ARG USER_UID=1000
+```
+However, changing the group `ARG USER_GID=100` with `id -g` is not recommended
+
+### Deamon socket permission denied
+#### Error
+```
+ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+```
+
+#### Solution
+
+Check if your user is correctly added to the `docker` group
+https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
+
+
+
