@@ -12,11 +12,13 @@ Maintainer of this fork: Pierre Sakic (sakic@ipgp.fr)
 See also the README of the original repository for more details: [readme_original.md](readme_original.md)
 
 ## Changelog
-* 2025-10-03: Make the docker compatible for a Debian 12.  
-Make the docker compilation faster, no needs to clone the whole wine repository
+* 2025-10-14: 
+  * Make the docker compatible ẃith a Debian 12.  
+  * Make the docker compilation faster, no needs to clone the whole wine repository anymore.
 * 2025-01-03: better handling of the user & group ID
-* 2024-10-29: Back to `ConvertToRinex` v3.14.  
-For some files, v3.15 leads to error:  
+* 2024-10-29: 
+  * Back to `ConvertToRinex` v3.14.  
+  * For some files, v3.15 leads to error:  
 `t01dll assembly:<unknown assembly> type:<unknown type> member:(null)`
 * 2024-09-07: Change the wine repository for https://gitlab.winehq.org/wine/wine.git
 * 2024-09-06: Change for `ConvertToRinex` v3.15
