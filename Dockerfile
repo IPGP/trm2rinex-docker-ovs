@@ -107,7 +107,9 @@ RUN git config --global http.postBuffer 524288000
 #     && git checkout ${WINE_COMMIT}
 
 # Checkout Wine Release 6.22 - NEW STYLE, clone only the needed branch => FASTER
-RUN git clone --depth=1 --branch ${WINE_TAG} https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+RUN git clone --depth=1 --branch ${WINE_TAG} \
+    https://gitlab.winehq.org/wine/wine.git \
+    ~/wine-dirs/wine-source \
     && cd ~/wine-dirs/wine-source
 
 # Install more build prerequisites
