@@ -24,10 +24,16 @@ For some files, v3.15 leads to error:
 This memo is about installing the `trm2rinex` software in a Docker container.   
 The software is a Windows software, so it is run in a Wine environment.
 
-### Prerequisite: install Docker (on your Ubuntu)
+### Prerequisite: install Docker 
+#### on Ubuntu
 ```
 https://www.simplilearn.com/tutorials/docker-tutorial/how-to-install-docker-on-ubuntu
 ```
+#### on Debian
+```
+https://linuxiac.com/how-to-install-docker-on-debian-12-bookworm/
+```
+
 ### Create Docker group
 ```
 sudo addgroup --system docker
@@ -162,6 +168,17 @@ id -u
 ARG USER_UID=1000
 ```
 However, changing the group `ARG USER_GID=100` with `id -g` is not recommended
+
+### Deamon socket permission denied
+#### Error
+```
+ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+```
+
+#### Solution
+
+Check if your user is correctly added to the `docker` group
+https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
 
 
 
