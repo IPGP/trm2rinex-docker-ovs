@@ -12,6 +12,7 @@ Maintainer of this fork: Pierre Sakic (sakic@ipgp.fr)
 See also the README of the original repository for more details: [readme_original.md](readme_original.md)
 
 ## Changelog
+* 2025-01-03: better handling of the user & group ID
 * 2024-10-29: Back to `ConvertToRinex` v3.14.  
 For some files, v3.15 leads to error:  
 `t01dll assembly:<unknown assembly> type:<unknown type> member:(null)`
