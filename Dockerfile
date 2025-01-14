@@ -95,6 +95,9 @@ RUN dpkg --add-architecture i386 \
     && DEBIAN_FRONTEND="noninteractive" apt-get clean -y \        
     && rm -rf /var/lib/apt/lists/* 
   
+# Avoid the error RPC failed 
+RUN git config --global http.postBuffer 1048576000
+
 # Checkout Wine Release 6.22    
 RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
     && cd ~/wine-dirs/wine-source \
