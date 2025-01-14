@@ -52,7 +52,9 @@
 ARG BASE_IMAGE="ubuntu"
 ARG TAG="focal"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
-ARG WINE_TAG="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
+ARG WINE_COMMIT="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
+# WINE_COMMIT NOT USED ANYMORE, see WINE_TAG instead
+ARG WINE_TAG="wine-6.22"
 ARG USER_NAME=trm2rinex
 ARG USER_PASSWD=trm2rinex
 ARG USER_UID=1000
@@ -68,6 +70,7 @@ ARG DELAY_BETWEEN_INSTALL=10
 FROM ${BASE_IMAGE}:${TAG} AS stage1
 SHELL ["/bin/bash", "-c"]
 ARG WINE_INSTALL_PREFIX
+ARG WINE_COMMIT
 ARG WINE_TAG
 ARG USER_NAME
 ARG USER_PASSWD
@@ -98,11 +101,23 @@ RUN dpkg --add-architecture i386 \
 # Avoid the error RPC failed 
 RUN git config --global http.postBuffer 524288000  
 
-# Checkout Wine Release 6.22    
-RUN git clone  --depth 1 https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
-    && cd ~/wine-dirs/wine-source \
-    && git fetch --depth=1 origin ${WINE_TAG} \
-    && git checkout ${WINE_TAG}
+# Checkout Wine Release 6.22 - OLD STYLE, clone the whole repo => SLOW
+# RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+#     && cd ~/wine-dirs/wine-source \
+#     && git checkout ${WINE_COMMIT}
+
+# Checkout Wine Release 6.22 - alternative OLD STYLE
+# RUN git clone  --depth 1 https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+#   && cd ~/wine-dirs/wine-source \
+#   && git fetch --depth=1 origin ${WINE_TAG} \
+#   && git checkout ${WINE_TAG}
+
+# Checkout Wine Release 6.22 - NEW STYLE, clone only the needed branch => FASTER
+RUN git clone --depth=1 --branch ${WINE_TAG} \
+    https://gitlab.winehq.org/wine/wine.git \
+    ~/wine-dirs/wine-source \
+    && cd ~/wine-dirs/wine-source
+
 
 # Install more build prerequisites
 RUN dpkg --add-architecture i386 \
@@ -233,8 +248,7 @@ ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File
 
 RUN chmod 755 /tmp/download_mono.sh \
     && /tmp/download_mono.sh "$([[ "$(${WINE_INSTALL_PREFIX}/bin/wine --version)" =~ .*([0-9]{1}.[0-9]{2}) ]] &&  echo ${BASH_REMATCH[1]})" 
-
-#RUN groupadd --gid ${USER_GID} ${USER_NAME}    
+    
 RUN useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --password "$(openssl passwd -1 -salt "$(openssl rand -base64 6)" ${USER_PASSWD})" --create-home --home-dir "/home/${USER_NAME}" "${USER_NAME}" \
     && usermod -aG sudo "${USER_NAME}"
 
@@ -282,7 +296,6 @@ RUN dpkg --add-architecture i386 \
         libc6-x32  lib32stdc++6 \
         sudo \
         nano \        
-    #&& groupadd --gid ${USER_GID} ${USER_NAME} \ 
     && useradd --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} --password "$(openssl passwd -1 -salt "$(openssl rand -base64 6)" ${USER_PASSWD})" --create-home --home-dir /home/${USER_NAME} ${USER_NAME} \
     && usermod -aG sudo ${USER_NAME} \
     && DEBIAN_FRONTEND="noninteractive" apt-get clean -y \        
