@@ -109,8 +109,8 @@ RUN git config --global http.postBuffer 524288000
 # Checkout Wine Release 6.22 - alternative OLD STYLE
 # RUN git clone  --depth 1 https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
 #   && cd ~/wine-dirs/wine-source \
-#   && git fetch --depth=1 origin ${WINE_TAG} \
-#   && git checkout ${WINE_TAG}
+#   && git fetch --depth=1 origin ${WINE_COMMIT} \
+#   && git checkout ${WINE_COMMIT}
 
 # Checkout Wine Release 6.22 - NEW STYLE, clone only the needed branch => FASTER
 RUN git clone --depth=1 --branch ${WINE_TAG} \
