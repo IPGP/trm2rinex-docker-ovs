@@ -105,7 +105,7 @@ RUN chmod 755 /home/${USER_NAME}/clean.sh
 ### Issue about converting the files
 #### Error 
 ```
-klein@zoisite:~/SOFT/trm2rinex-docker$ docker run --rm -v "$(pwd):/data" trm2rinex:cli-light data/MAGC320b.2021.rt27 data/out
+user@computer:~/SOFT/trm2rinex-docker$ docker run --rm -v "$(pwd):/data" trm2rinex:cli-light data/MAGC320b.2021.rt27 data/out
 Scanning data/MAGC320b.2021.rt27...Complete!
 Converting MAGC320b.2021.rt27...Error: CrinexFile - System.UnauthorizedAccessException: Access to the path "Z:\data\MAGC320b.2021.21n" is denied.
   at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.Boolean anonymous, System.IO.FileOptions options) [0x0019e] in <bee01833bcad4475a5c84b3c3d7e0cd6>:0 
