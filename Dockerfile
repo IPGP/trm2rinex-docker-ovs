@@ -96,7 +96,7 @@ RUN dpkg --add-architecture i386 \
     && rm -rf /var/lib/apt/lists/* 
   
 # Avoid the error RPC failed 
-RUN git config --global http.postBuffer 1048576000
+RUN git config --global http.postBuffer 524288000  
 
 # Checkout Wine Release 6.22    
 RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
