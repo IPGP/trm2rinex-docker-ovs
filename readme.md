@@ -169,5 +169,16 @@ ARG USER_UID=1000
 ```
 However, changing the group `ARG USER_GID=100` with `id -g` is not recommended
 
+### Deamon socket permission denied
+#### Error
+```
+ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+```
+
+#### Solution
+
+Check if your user is correctly added to the `docker` group
+https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
+
 
 
