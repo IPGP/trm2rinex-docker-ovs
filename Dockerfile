@@ -96,8 +96,9 @@ RUN dpkg --add-architecture i386 \
     && rm -rf /var/lib/apt/lists/* 
   
 # Checkout Wine Release 6.22    
-RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+RUN git clone  --depth 1 https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
     && cd ~/wine-dirs/wine-source \
+    && git fetch --depth=1 origin ${WINE_TAG} \
     && git checkout ${WINE_TAG}
 
 # Install more build prerequisites
@@ -229,7 +230,8 @@ ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File
 
 RUN chmod 755 /tmp/download_mono.sh \
     && /tmp/download_mono.sh "$([[ "$(${WINE_INSTALL_PREFIX}/bin/wine --version)" =~ .*([0-9]{1}.[0-9]{2}) ]] &&  echo ${BASH_REMATCH[1]})" 
-    
+
+#RUN groupadd --gid ${USER_GID} ${USER_NAME}    
 RUN useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --password "$(openssl passwd -1 -salt "$(openssl rand -base64 6)" ${USER_PASSWD})" --create-home --home-dir "/home/${USER_NAME}" "${USER_NAME}" \
     && usermod -aG sudo "${USER_NAME}"
 
@@ -277,6 +279,7 @@ RUN dpkg --add-architecture i386 \
         libc6-x32  lib32stdc++6 \
         sudo \
         nano \        
+    #&& groupadd --gid ${USER_GID} ${USER_NAME} \ 
     && useradd --shell /bin/bash --uid ${USER_UID} --gid ${USER_GID} --password "$(openssl passwd -1 -salt "$(openssl rand -base64 6)" ${USER_PASSWD})" --create-home --home-dir /home/${USER_NAME} ${USER_NAME} \
     && usermod -aG sudo ${USER_NAME} \
     && DEBIAN_FRONTEND="noninteractive" apt-get clean -y \        
