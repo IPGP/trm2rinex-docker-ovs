@@ -24,10 +24,16 @@ For some files, v3.15 leads to error:
 This memo is about installing the `trm2rinex` software in a Docker container.   
 The software is a Windows software, so it is run in a Wine environment.
 
-### Prerequisite: install Docker (on your Ubuntu)
+### Prerequisite: install Docker 
+#### on Ubuntu
 ```
 https://www.simplilearn.com/tutorials/docker-tutorial/how-to-install-docker-on-ubuntu
 ```
+#### on Debian
+```
+https://linuxiac.com/how-to-install-docker-on-debian-12-bookworm/
+```
+
 ### Create Docker group
 ```
 sudo addgroup --system docker
