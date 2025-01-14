@@ -12,6 +12,7 @@ Maintainer of this fork: Pierre Sakic (sakic@ipgp.fr)
 See also the README of the original repository for more details: [readme_original.md](readme_original.md)
 
 ## Changelog
+* 2025-10-03: Make the docker compatible for a Debian 12
 * 2025-01-03: better handling of the user & group ID
 * 2024-10-29: Back to `ConvertToRinex` v3.14.  
 For some files, v3.15 leads to error:  
@@ -155,7 +156,6 @@ docker build --build-arg USER_UID=$(id -u) -t trm2rinex:cli-light .
 ```
 However, adding the group with `--build-arg USER_GID=$(id -g)` is not recommended
 
-
 #### Solution 2
 Change the values defined in the `Dockerfile` preamble
 
@@ -176,9 +176,22 @@ ERROR: permission denied while trying to connect to the Docker daemon socket at 
 ```
 
 #### Solution
-
 Check if your user is correctly added to the `docker` group
 https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
+
+###
+#### Error
+While building the Docker image, you have the following error:
+```commandline
+RPC failed; curl 56 GnuTLS recv error (-9): Error decoding the received TLS packet.
+```
+
+#### Solution
+
+Follow the following solutions. _It is implemented per default in the Dockerfile_.
+https://stackoverflow.com/questions/6842687/the-remote-end-hung-up-unexpectedly-while-git-cloning
+https://stackoverflow.com/questions/38378914/how-to-fix-git-error-rpc-failed-curl-56-gnutls
+
 
 
 

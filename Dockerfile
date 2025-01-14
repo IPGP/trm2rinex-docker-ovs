@@ -52,7 +52,9 @@
 ARG BASE_IMAGE="ubuntu"
 ARG TAG="focal"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
-ARG WINE_TAG="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
+ARG WINE_COMMIT="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
+# WINE_COMMIT NOT USED ANYMORE, see WINE_TAG instead
+ARG WINE_TAG="wine-6.22"
 ARG USER_NAME=trm2rinex
 ARG USER_PASSWD=trm2rinex
 ARG USER_UID=1000
@@ -68,6 +70,7 @@ ARG DELAY_BETWEEN_INSTALL=10
 FROM ${BASE_IMAGE}:${TAG} AS stage1
 SHELL ["/bin/bash", "-c"]
 ARG WINE_INSTALL_PREFIX
+ARG WINE_COMMIT
 ARG WINE_TAG
 ARG USER_NAME
 ARG USER_PASSWD
@@ -98,10 +101,14 @@ RUN dpkg --add-architecture i386 \
 # Avoid the error RPC failed 
 RUN git config --global http.postBuffer 524288000  
 
-# Checkout Wine Release 6.22    
-RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
-    && cd ~/wine-dirs/wine-source \
-    && git checkout ${WINE_TAG}
+# Checkout Wine Release 6.22 - OLD STYLE, clone the whole repo => SLOW
+# RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+#     && cd ~/wine-dirs/wine-source \
+#     && git checkout ${WINE_COMMIT}
+
+# Checkout Wine Release 6.22 - NEW STYLE, clone only the needed branch => FASTER
+RUN git clone --depth=1 --branch ${WINE_TAG} https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+    && cd ~/wine-dirs/wine-source
 
 # Install more build prerequisites
 RUN dpkg --add-architecture i386 \
