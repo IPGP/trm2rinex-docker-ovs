@@ -80,6 +80,27 @@ docker image rm 925d947bf045
 cd <...>/trm2rinex-docker
 docker run --rm -v "$(pwd):/data" trm2rinex:cli-light data/MAGC320b.2021.rt27 -p data/out
 ```
+
+## transfer the Docker image to another computer
+
+You can save the Docker image to a file
+```
+docker save -o trm2rinex.tar trm2rinex:cli-light
+```
+and transfer the `trm2rinex.tar` file to another computer using rsync, scp, etc.
+
+On the other computer, load the Docker image with
+```
+docker load -i trm2rinex.tar
+```
+
+You might have to rename the image with
+```
+docker tag <IMAGE ID> trm2rinex:cli-light
+```
+
+`IMAGE ID` is the ID of the image you can get with `docker images`
+
 ## Troubleshooter
 
 ### Issue about removing folders during Docker compilation
