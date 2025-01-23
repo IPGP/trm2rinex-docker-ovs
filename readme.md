@@ -213,9 +213,9 @@ RPC failed; curl 56 GnuTLS recv error (-9): Error decoding the received TLS pack
 #### Solution
 Your connexion is too slow, and a timeout occurs while cloning the git wine repository.  
 Follow these solutions to clone the wished git tag only and increase the timeout.  
-_It is implemented per default in the Dockerfile_.
-https://stackoverflow.com/questions/6842687/the-remote-end-hung-up-unexpectedly-while-git-cloning
-https://stackoverflow.com/questions/38378914/how-to-fix-git-error-rpc-failed-curl-56-gnutls
+_It is implemented per default in the Dockerfile_.  
+* https://stackoverflow.com/questions/6842687/the-remote-end-hung-up-unexpectedly-while-git-cloning
+* https://stackoverflow.com/questions/38378914/how-to-fix-git-error-rpc-failed-curl-56-gnutls
 
 
 
