@@ -77,9 +77,10 @@ docker image rm 925d947bf045
 
 ### Run the test file conversion
 ```
-cd <...>/trm2rinex-docker
+cd $HOME/your/favorite/folder/trm2rinex-docker
 docker run --rm -v "$(pwd):/data" trm2rinex:cli-light data/MAGC320b.2021.rt27 -p data/out
 ```
+See the [readme_original.md](readme_original.md) for more details regarding the usage.
 
 ## transfer the Docker image to another computer
 
