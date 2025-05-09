@@ -77,9 +77,10 @@ docker image rm 925d947bf045
 
 ### Run the test file conversion
 ```
-cd <...>/trm2rinex-docker
+cd $HOME/your/favorite/folder/trm2rinex-docker
 docker run --rm -v "$(pwd):/data" trm2rinex:cli-light data/MAGC320b.2021.rt27 -p data/out
 ```
+See the [readme_original.md](readme_original.md) for more details regarding the usage.
 
 ## transfer the Docker image to another computer
 
@@ -213,7 +214,7 @@ RPC failed; curl 56 GnuTLS recv error (-9): Error decoding the received TLS pack
 #### Solution
 Your connexion is too slow, and a timeout occurs while cloning the git wine repository.  
 Follow these solutions to clone the wished git tag only and increase the timeout.  
-_It is implemented per default in the Dockerfile_.
+_It is implemented per default in the Dockerfile_.  
 * https://stackoverflow.com/questions/6842687/the-remote-end-hung-up-unexpectedly-while-git-cloning
 * https://stackoverflow.com/questions/38378914/how-to-fix-git-error-rpc-failed-curl-56-gnutls
 
