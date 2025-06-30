@@ -208,7 +208,7 @@ ERROR: permission denied while trying to connect to the Docker daemon socket at 
 Check if your user is correctly added to the `docker` group
 https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
 
-###
+### RPC failed
 #### Error
 While building the Docker image, you have the following error:
 ```commandline
