@@ -236,12 +236,12 @@ RUN ldconfig
 # Download mono installer
 COPY download_mono.sh /tmp/download_mono.sh
 
-ADD --chown=${USER_UID}:${USER_GID} https://dl.trimble.com/osg/survey/gpsconfigfiles/21.9.27/trimblecfgupdate.exe /tmp
+#ADD --chown=${USER_UID}:${USER_GID} https://dl.trimble.com/osg/survey/gpsconfigfiles/21.9.27/trimblecfgupdate.exe /tmp
 # *** initial URL for v3.14 convertToRinex314
 # ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-869391/convertToRinex314.msi /tmp
 # *** new URL for v3.14 convertToRinex314 (PS 241029)
 # https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi
-ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi /tmp
+#ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi /tmp
 # *** URL for v4.01 convertToRinex_4_0_1_8 (PS 250509)
 # https://trl.trimble.com/docushare/dsweb/Get/Document-1080498/convertToRinex_4_0_1_8.msi
 ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1080498/convertToRinex_4_0_1_8.msi /tmp
@@ -260,24 +260,6 @@ RUN sleep ${DELAY_BETWEEN_INSTALL} \
     && sleep ${DELAY_BETWEEN_INSTALL} \
 #   line for v4.01
     && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex_4_0_1_8.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
-#   line for v3.15
-#   && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinexv3.15.0.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
-
-
-
-RUN chmod 755 /tmp/download_mono.sh \
-    && /tmp/download_mono.sh "$([[ "$(${WINE_INSTALL_PREFIX}/bin/wine --version)" =~ .*([0-9]{1}.[0-9]{2}) ]] &&  echo ${BASH_REMATCH[1]})" 
-    
-RUN useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --password "$(openssl passwd -1 -salt "$(openssl rand -base64 6)" ${USER_PASSWD})" --create-home --home-dir "/home/${USER_NAME}" "${USER_NAME}" \
-    && usermod -aG sudo "${USER_NAME}"
-
-USER ${USER_NAME}
-RUN wine /tmp/trimblecfgupdate.exe /s /x /b"Z:\\tmp" /v"/qn" 2>/dev/null \
-    && sleep ${DELAY_BETWEEN_INSTALL} \
-    && wine cmd /c "msiexec /i Z:\\tmp\\TrimbleCFGUpdate.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null \
-    && sleep ${DELAY_BETWEEN_INSTALL} \
-#   line for v3.14
-    && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex314.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
 #   line for v3.15
 #   && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinexv3.15.0.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
 
@@ -326,4 +308,3 @@ COPY --from=stage2 --chown=${USER_UID}:${USER_GID} /home/${USER_NAME}/.wine /hom
 
 USER ${USER_NAME}
 ENTRYPOINT ["/usr/bin/entrypoint"]
-
