@@ -50,8 +50,8 @@
 #
 
 ARG BASE_IMAGE="ubuntu"
-#ARG TAG="focal"
-ARG TAG="noble"
+ARG TAG="focal"
+#ARG TAG="noble"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
 ARG WINE_COMMIT="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
 # WINE_COMMIT NOT USED ANYMORE, see WINE_TAG instead
@@ -155,49 +155,48 @@ RUN dpkg --add-architecture i386 \
 
 # --without-x 
 RUN cd ~/wine-dirs/wine-source \
-&& ./configure --prefix=${WINE_INSTALL_PREFIX} --enable-win64 --with-x --without-freetype
-#--disable-tests --without-capi --without-alsa --without-gphoto --without-hal --without-dbus --without-oss --without-quicktime --without-v4l2 --without-mingw --without-gstreamer --without-coreaudio --without-cups --without-sane --without-udev --without-xrandr --without-xinerama --without-pcap --without-krb5 --without-openal --without-opencl --without-opengl --without-pulse --without-vkd3d --without-vulkan --without-gssapi --without-usb --without-fontconfig --without-freetype --without-osmesa --without-xcomposite --without-xcursor --without-xfixes --without-xxf86vm \
-#--disable-sc --disable-services --disable-xpsprint --disable-xpssvcs \
-#--disable-powershell --disable-wuauserv --disable-wusa \
-#--disable-progman \
-#--disable-winemine --disable-winedbg --disable-winegcc --disable-winemaker --disable-winebuild --disable-winedump \
-#--disable-taskmgr --disable-wmplayer --disable-wordpad --disable-notepad --disable-write --disable-msinfo32 \
-#--disable-rpcss \
-#--disable-winealsa_drv --disable-dmusic --disable-dmusic32 --disable-dpvoice --disable-winepulse_drv --disable-winecoreaudio_drv --disable-wineoss_drv \
-#--disable-plugplay --disable-progman  \
-#--disable-windows_media_devices --disable-windows_media_speech \
-#--disable-wineandroid_drv \
-#--disable-powrprof --disable-printui --disable-scsiport_sys --disable-serialui --disable-twain_32 --disable-usbd_sys --disable-wineusb_sys \
-#--disable-d3d8 --disable-d3d8thk --disable-d3d9 --disable-d3d10 --disable-d3d10_1 --disable-d3d10core --disable-d3d11 --disable-d3d12 \
-#--disable-windowscodecs --disable-windowscodecsext \
-#--disable-winejoystick_drv --disable-joy_cpl --disable-irprops_cpl \
-#--disable-windows_gaming_input --disable-windows_media_devices --disable-windows_media_speech \
-#--disable-wmphoto --disable-wmp --disable-wmvcore --disable-dxdiag --disable-winusb \
-#--disable-vulkan_1 --disable-wined3d --disable-winevulkan \
-#--disable-eject -disable-virtdisk \
-#--disable-bluetoothapis --disable-photometadatahandler \
-#--disable-d3drm --disable-drmclien --disable-msdrm \
-#--disable-schtasks --disable-inetcpl_cpl \
-#-disable-d3dx10_33 --disable-d3dx10_34 --disable-d3dx10_35 --disable-d3dx10_36 --disable-d3dx10_37 --disable-d3dx10_38 --disable-d3dx10_39 --disable-d3dx10_40 --disable-d3dx10_41 --disable-d3dx11_42 --disable-d3dx11_43 --disable-d3dx9_24 --disable-d3dx9_25 --disable-d3dx9_26 --disable-d3dx9_27 --disable-d3dx9_28 --disable-d3dx9_29 --disable-d3dx9_30 --disable-d3dx9_31 --disable-d3dx9_32 --disable-d3dx9_33 --disable-d3dx9_34 --disable-d3dx9_35 --disable-d3dx9_36 --disable-d3dx9_37 --disable-d3dx9_38 --disable-d3dx9_39 --disable-d3dx9_40 --disable-d3dx9_41 --disable-d3dx9_42 --disable-d3dx9_43 --disable-d3dxof   --disable-d3dcompiler_33 --disable-d3dcompiler_34 --disable-d3dcompiler_35 --disable-d3dcompiler_36 --disable-d3dcompiler_37 --disable-d3dcompiler_38 --disable-d3dcompiler_39 --disable-d3dcompiler_40 --disable-d3dcompiler_41 --disable-d3dcompiler_42 --disable-d3dcompiler_43 --disable-d3dcompiler_46 --disable-d3dcompiler_47 --disable-d3dim --disable-d3dim700 --disable-x3daudio1_0 --disable-x3daudio1_1 --disable-x3daudio1_2 --disable-x3daudio1_3 --disable-x3daudio1_4 --disable-x3daudio1_5 --disable-x3daudio1_6 --disable-x3daudio1_7 --disable-xactengine2_0 --disable-xactengine2_4 --disable-xactengine2_7 --disable-xactengine2_9 --disable-xactengine3_0 --disable-xactengine3_1 --disable-xactengine3_2 --disable-xactengine3_3 --disable-xactengine3_4 --disable-xactengine3_5 --disable-xactengine3_6 --disable-xactengine3_7 --disable-xapofx1_1 --disable-xapofx1_2 --disable-xapofx1_3 --disable-xapofx1_4 --disable-xapofx1_5 --disable-xaudio2_0 --disable-xaudio2_1 --disable-xaudio2_2 --disable-xaudio2_3 --disable-xaudio2_4 --disable-xaudio2_5 --disable-xaudio2_6 --disable-xaudio2_7 --disable-xaudio2_8 --disable-xaudio2_9 \
-#--disable-net --disable-netsh --disable-netstat --disable-ipconfig --disable-dism --disable-clock --disable-arp \
-#--disable-jpeg --disable-gsm --disable-dxerr8 --disable-dxerr9 \
-#--disable-msvcp100 --disable-msvcp110 --disable-msvcp120 --disable-msvcp120_app --disable-msvcp60 --disable-msvcp70 --disable-msvcp71 --disable-msvcp80 --disable-msvcp90 --disable-msvcr100 --disable-msvcr110 --disable-msvcr120 --disable-msvcr120_app --disable-msvcr70 --disable-msvcr71 --disable-msvcr80 --disable-msvcr90 --disable-msvcrt20 --disable-msvcrtd \
-#--disable-opencl --disable-opengl32 --disable-openal32 --disable-pwrshplugin --disable-windows_devices_enumeration --disable-winhlp32 \
-#--enable-start --disable-ping --disable-systeminfo --disable-taskkill --disable-robocopy  \
-#--disable-msgsm32_acm --disable-bthprops_cpl \
-#--disable-explorer --disable-iexplore --enable-server \
-#--disable-dx8vb --disable-dxdiagn --disable-dxgi --disable-dxtrans --disable-dxva2 \
-#--disable-ext_ms_win_authz_context_l1_1_0 --disable-ext_ms_win_domainjoin_netjoin_l1_1_0 --disable-ext_ms_win_dwmapi_ext_l1_1_0 --disable-ext_ms_win_gdi_dc_create_l1_1_0 --disable-ext_ms_win_gdi_dc_create_l1_1_1 --disable-ext_ms_win_gdi_dc_l1_2_0 --disable-ext_ms_win_gdi_devcaps_l1_1_0 --disable-ext_ms_win_gdi_draw_l1_1_0 --disable-ext_ms_win_gdi_draw_l1_1_1 --disable-ext_ms_win_gdi_font_l1_1_0 --disable-ext_ms_win_gdi_font_l1_1_1 --disable-ext_ms_win_gdi_render_l1_1_0 --disable-ext_ms_win_kernel32_package_current_l1_1_0 --disable-ext_ms_win_kernel32_package_l1_1_1 --disable-ext_ms_win_ntuser_dialogbox_l1_1_0 --disable-ext_ms_win_ntuser_draw_l1_1_0 --disable-ext_ms_win_ntuser_gui_l1_1_0 --disable-ext_ms_win_ntuser_gui_l1_3_0 --disable-ext_ms_win_ntuser_keyboard_l1_3_0 --disable-ext_ms_win_ntuser_message_l1_1_0 --disable-ext_ms_win_ntuser_message_l1_1_1 --disable-ext_ms_win_ntuser_misc_l1_1_0 --disable-ext_ms_win_ntuser_misc_l1_2_0 --disable-ext_ms_win_ntuser_misc_l1_5_1 --disable-ext_ms_win_ntuser_mouse_l1_1_0 --disable-ext_ms_win_ntuser_private_l1_1_1 --disable-ext_ms_win_ntuser_private_l1_3_1 --disable-ext_ms_win_ntuser_rectangle_ext_l1_1_0 --disable-ext_ms_win_ntuser_uicontext_ext_l1_1_0 --disable-ext_ms_win_ntuser_window_l1_1_0 --disable-ext_ms_win_ntuser_window_l1_1_1 --disable-ext_ms_win_ntuser_window_l1_1_4 --disable-ext_ms_win_ntuser_windowclass_l1_1_0 --disable-ext_ms_win_ntuser_windowclass_l1_1_1 --disable-ext_ms_win_oleacc_l1_1_0 --disable-ext_ms_win_ras_rasapi32_l1_1_0 --disable-ext_ms_win_rtcore_gdi_devcaps_l1_1_0 --disable-ext_ms_win_rtcore_gdi_object_l1_1_0 --disable-ext_ms_win_rtcore_gdi_rgn_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_cursor_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_dc_access_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_dpi_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_dpi_l1_2_0 --disable-ext_ms_win_rtcore_ntuser_rawinput_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_syscolors_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_sysparams_l1_1_0 --disable-ext_ms_win_security_credui_l1_1_0 --disable-ext_ms_win_security_cryptui_l1_1_0 --disable-ext_ms_win_shell_comctl32_init_l1_1_0 --disable-ext_ms_win_shell_comdlg32_l1_1_0 --disable-ext_ms_win_shell_shell32_l1_2_0 --disable-ext_ms_win_uxtheme_themes_l1_1_0 \
-#--disable-ipconfig --disable-sane_ds --disable-winemac_drv --enable-wininet \
-#--disable-acledit --disable-aclui --disable-dhcpcsvc --disable-dhcpcsvc6 --disable-tapi32 \
-#--disable-api_ms_win_security_audit_l1_1_1 --disable-api_ms_win_security_base_l1_1_0 --disable-api_ms_win_security_base_l1_2_0 --disable-api_ms_win_security_base_private_l1_1_1 --disable-api_ms_win_security_credentials_l1_1_0 --disable-api_ms_win_security_cryptoapi_l1_1_0 --disable-api_ms_win_security_grouppolicy_l1_1_0 --disable-api_ms_win_security_lsalookup_l1_1_0 --disable-api_ms_win_security_lsalookup_l1_1_1 --disable-api_ms_win_security_lsalookup_l2_1_0 --disable-api_ms_win_security_lsalookup_l2_1_1 --disable-api_ms_win_security_lsapolicy_l1_1_0 --disable-api_ms_win_security_provider_l1_1_0 --disable-api_ms_win_security_sddl_l1_1_0 --disable-api_ms_win_security_systemfunctions_l1_1_0 --disable-api_ms_win_service_core_l1_1_0 --disable-api_ms_win_service_core_l1_1_1 --disable-api_ms_win_service_management_l1_1_0 --disable-api_ms_win_service_management_l2_1_0 --disable-api_ms_win_service_private_l1_1_1 --disable-api_ms_win_service_winsvc_l1_1_0 --disable-api_ms_win_service_winsvc_l1_2_0 \
-#--disable-api_ms_win_downlevel_advapi32_l1_1_0 --disable-api_ms_win_downlevel_advapi32_l2_1_0 --disable-api_ms_win_downlevel_kernel32_l2_1_0 --disable-api_ms_win_downlevel_normaliz_l1_1_0 --disable-api_ms_win_downlevel_ole32_l1_1_0 --disable-api_ms_win_downlevel_shell32_l1_1_0 --disable-api_ms_win_downlevel_shlwapi_l1_1_0 --disable-api_ms_win_downlevel_shlwapi_l2_1_0 --disable-api_ms_win_downlevel_user32_l1_1_0 --disable-api_ms_win_downlevel_version_l1_1_0 --disable-api_ms_win_dx_d3dkmt_l1_1_0 --disable-api_ms_win_eventing_classicprovider_l1_1_0 --disable-api_ms_win_eventing_consumer_l1_1_0 --disable-api_ms_win_eventing_controller_l1_1_0 --disable-api_ms_win_eventing_legacy_l1_1_0 --disable-api_ms_win_eventing_provider_l1_1_0 --disable-api_ms_win_eventlog_legacy_l1_1_0 --disable-api_ms_win_gaming_tcui_l1_1_0 --disable-api_ms_win_gdi_dpiinfo_l1_1_0 --disable-api_ms_win_mm_joystick_l1_1_0 \
-#--disable-wmc --disable-wrc --disable-winmgmt --disable-wmic --disable-winebrowser \
-#--without-xinput --without-xinput2 --without-xshape --without-xshm \
-#--enable-bcrypt --enable-crypt32 \
-#--disable-ieframe --disable-ieproxy \
-#--disable-wlanapi --disable-wlanui \
-#--disable-netio_sys --disable-widl --disable-jscript
+&& ./configure --prefix=${WINE_INSTALL_PREFIX} --disable-tests --without-capi --without-alsa --without-gphoto --without-hal --without-dbus --without-oss --without-quicktime --without-v4l2 --without-mingw --without-gstreamer --without-coreaudio --without-cups --without-sane --without-udev --without-xrandr --without-xinerama --without-pcap --without-krb5 --without-openal --without-opencl --without-opengl --without-pulse --without-vkd3d --without-vulkan --without-gssapi --without-x --without-usb --without-fontconfig --without-freetype --without-osmesa --without-xcomposite --without-xcursor --without-xfixes --without-xxf86vm \
+--disable-sc --disable-services --disable-xpsprint --disable-xpssvcs \
+--disable-powershell --disable-wuauserv --disable-wusa \
+--disable-progman \
+--disable-winemine --disable-winedbg --disable-winegcc --disable-winemaker --disable-winebuild --disable-winedump \
+--disable-taskmgr --disable-wmplayer --disable-wordpad --disable-notepad --disable-write --disable-msinfo32 \
+--disable-rpcss \
+--disable-winealsa_drv --disable-dmusic --disable-dmusic32 --disable-dpvoice --disable-winepulse_drv --disable-winecoreaudio_drv --disable-wineoss_drv \
+--disable-plugplay --disable-progman  \
+--disable-windows_media_devices --disable-windows_media_speech \
+--disable-wineandroid_drv \
+--disable-powrprof --disable-printui --disable-scsiport_sys --disable-serialui --disable-twain_32 --disable-usbd_sys --disable-wineusb_sys \
+--disable-d3d8 --disable-d3d8thk --disable-d3d9 --disable-d3d10 --disable-d3d10_1 --disable-d3d10core --disable-d3d11 --disable-d3d12 \
+--disable-windowscodecs --disable-windowscodecsext \
+--disable-winejoystick_drv --disable-joy_cpl --disable-irprops_cpl \
+--disable-windows_gaming_input --disable-windows_media_devices --disable-windows_media_speech \
+--disable-wmphoto --disable-wmp --disable-wmvcore --disable-dxdiag --disable-winusb \
+--disable-vulkan_1 --disable-wined3d --disable-winevulkan \
+--disable-eject -disable-virtdisk \
+--disable-bluetoothapis --disable-photometadatahandler \
+--disable-d3drm --disable-drmclien --disable-msdrm \
+--disable-schtasks --disable-inetcpl_cpl \
+-disable-d3dx10_33 --disable-d3dx10_34 --disable-d3dx10_35 --disable-d3dx10_36 --disable-d3dx10_37 --disable-d3dx10_38 --disable-d3dx10_39 --disable-d3dx10_40 --disable-d3dx10_41 --disable-d3dx11_42 --disable-d3dx11_43 --disable-d3dx9_24 --disable-d3dx9_25 --disable-d3dx9_26 --disable-d3dx9_27 --disable-d3dx9_28 --disable-d3dx9_29 --disable-d3dx9_30 --disable-d3dx9_31 --disable-d3dx9_32 --disable-d3dx9_33 --disable-d3dx9_34 --disable-d3dx9_35 --disable-d3dx9_36 --disable-d3dx9_37 --disable-d3dx9_38 --disable-d3dx9_39 --disable-d3dx9_40 --disable-d3dx9_41 --disable-d3dx9_42 --disable-d3dx9_43 --disable-d3dxof   --disable-d3dcompiler_33 --disable-d3dcompiler_34 --disable-d3dcompiler_35 --disable-d3dcompiler_36 --disable-d3dcompiler_37 --disable-d3dcompiler_38 --disable-d3dcompiler_39 --disable-d3dcompiler_40 --disable-d3dcompiler_41 --disable-d3dcompiler_42 --disable-d3dcompiler_43 --disable-d3dcompiler_46 --disable-d3dcompiler_47 --disable-d3dim --disable-d3dim700 --disable-x3daudio1_0 --disable-x3daudio1_1 --disable-x3daudio1_2 --disable-x3daudio1_3 --disable-x3daudio1_4 --disable-x3daudio1_5 --disable-x3daudio1_6 --disable-x3daudio1_7 --disable-xactengine2_0 --disable-xactengine2_4 --disable-xactengine2_7 --disable-xactengine2_9 --disable-xactengine3_0 --disable-xactengine3_1 --disable-xactengine3_2 --disable-xactengine3_3 --disable-xactengine3_4 --disable-xactengine3_5 --disable-xactengine3_6 --disable-xactengine3_7 --disable-xapofx1_1 --disable-xapofx1_2 --disable-xapofx1_3 --disable-xapofx1_4 --disable-xapofx1_5 --disable-xaudio2_0 --disable-xaudio2_1 --disable-xaudio2_2 --disable-xaudio2_3 --disable-xaudio2_4 --disable-xaudio2_5 --disable-xaudio2_6 --disable-xaudio2_7 --disable-xaudio2_8 --disable-xaudio2_9 \
+--disable-net --disable-netsh --disable-netstat --disable-ipconfig --disable-dism --disable-clock --disable-arp \
+--disable-jpeg --disable-gsm --disable-dxerr8 --disable-dxerr9 \
+--disable-msvcp100 --disable-msvcp110 --disable-msvcp120 --disable-msvcp120_app --disable-msvcp60 --disable-msvcp70 --disable-msvcp71 --disable-msvcp80 --disable-msvcp90 --disable-msvcr100 --disable-msvcr110 --disable-msvcr120 --disable-msvcr120_app --disable-msvcr70 --disable-msvcr71 --disable-msvcr80 --disable-msvcr90 --disable-msvcrt20 --disable-msvcrtd \
+--disable-opencl --disable-opengl32 --disable-openal32 --disable-pwrshplugin --disable-windows_devices_enumeration --disable-winhlp32 \
+--enable-start --disable-ping --disable-systeminfo --disable-taskkill --disable-robocopy  \
+--disable-msgsm32_acm --disable-bthprops_cpl \
+--disable-explorer --disable-iexplore --enable-server \
+--disable-dx8vb --disable-dxdiagn --disable-dxgi --disable-dxtrans --disable-dxva2 \
+--disable-ext_ms_win_authz_context_l1_1_0 --disable-ext_ms_win_domainjoin_netjoin_l1_1_0 --disable-ext_ms_win_dwmapi_ext_l1_1_0 --disable-ext_ms_win_gdi_dc_create_l1_1_0 --disable-ext_ms_win_gdi_dc_create_l1_1_1 --disable-ext_ms_win_gdi_dc_l1_2_0 --disable-ext_ms_win_gdi_devcaps_l1_1_0 --disable-ext_ms_win_gdi_draw_l1_1_0 --disable-ext_ms_win_gdi_draw_l1_1_1 --disable-ext_ms_win_gdi_font_l1_1_0 --disable-ext_ms_win_gdi_font_l1_1_1 --disable-ext_ms_win_gdi_render_l1_1_0 --disable-ext_ms_win_kernel32_package_current_l1_1_0 --disable-ext_ms_win_kernel32_package_l1_1_1 --disable-ext_ms_win_ntuser_dialogbox_l1_1_0 --disable-ext_ms_win_ntuser_draw_l1_1_0 --disable-ext_ms_win_ntuser_gui_l1_1_0 --disable-ext_ms_win_ntuser_gui_l1_3_0 --disable-ext_ms_win_ntuser_keyboard_l1_3_0 --disable-ext_ms_win_ntuser_message_l1_1_0 --disable-ext_ms_win_ntuser_message_l1_1_1 --disable-ext_ms_win_ntuser_misc_l1_1_0 --disable-ext_ms_win_ntuser_misc_l1_2_0 --disable-ext_ms_win_ntuser_misc_l1_5_1 --disable-ext_ms_win_ntuser_mouse_l1_1_0 --disable-ext_ms_win_ntuser_private_l1_1_1 --disable-ext_ms_win_ntuser_private_l1_3_1 --disable-ext_ms_win_ntuser_rectangle_ext_l1_1_0 --disable-ext_ms_win_ntuser_uicontext_ext_l1_1_0 --disable-ext_ms_win_ntuser_window_l1_1_0 --disable-ext_ms_win_ntuser_window_l1_1_1 --disable-ext_ms_win_ntuser_window_l1_1_4 --disable-ext_ms_win_ntuser_windowclass_l1_1_0 --disable-ext_ms_win_ntuser_windowclass_l1_1_1 --disable-ext_ms_win_oleacc_l1_1_0 --disable-ext_ms_win_ras_rasapi32_l1_1_0 --disable-ext_ms_win_rtcore_gdi_devcaps_l1_1_0 --disable-ext_ms_win_rtcore_gdi_object_l1_1_0 --disable-ext_ms_win_rtcore_gdi_rgn_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_cursor_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_dc_access_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_dpi_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_dpi_l1_2_0 --disable-ext_ms_win_rtcore_ntuser_rawinput_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_syscolors_l1_1_0 --disable-ext_ms_win_rtcore_ntuser_sysparams_l1_1_0 --disable-ext_ms_win_security_credui_l1_1_0 --disable-ext_ms_win_security_cryptui_l1_1_0 --disable-ext_ms_win_shell_comctl32_init_l1_1_0 --disable-ext_ms_win_shell_comdlg32_l1_1_0 --disable-ext_ms_win_shell_shell32_l1_2_0 --disable-ext_ms_win_uxtheme_themes_l1_1_0 \
+--disable-ipconfig --disable-sane_ds --disable-winemac_drv --enable-wininet \
+--disable-acledit --disable-aclui --disable-dhcpcsvc --disable-dhcpcsvc6 --disable-tapi32 \
+--disable-api_ms_win_security_audit_l1_1_1 --disable-api_ms_win_security_base_l1_1_0 --disable-api_ms_win_security_base_l1_2_0 --disable-api_ms_win_security_base_private_l1_1_1 --disable-api_ms_win_security_credentials_l1_1_0 --disable-api_ms_win_security_cryptoapi_l1_1_0 --disable-api_ms_win_security_grouppolicy_l1_1_0 --disable-api_ms_win_security_lsalookup_l1_1_0 --disable-api_ms_win_security_lsalookup_l1_1_1 --disable-api_ms_win_security_lsalookup_l2_1_0 --disable-api_ms_win_security_lsalookup_l2_1_1 --disable-api_ms_win_security_lsapolicy_l1_1_0 --disable-api_ms_win_security_provider_l1_1_0 --disable-api_ms_win_security_sddl_l1_1_0 --disable-api_ms_win_security_systemfunctions_l1_1_0 --disable-api_ms_win_service_core_l1_1_0 --disable-api_ms_win_service_core_l1_1_1 --disable-api_ms_win_service_management_l1_1_0 --disable-api_ms_win_service_management_l2_1_0 --disable-api_ms_win_service_private_l1_1_1 --disable-api_ms_win_service_winsvc_l1_1_0 --disable-api_ms_win_service_winsvc_l1_2_0 \
+--disable-api_ms_win_downlevel_advapi32_l1_1_0 --disable-api_ms_win_downlevel_advapi32_l2_1_0 --disable-api_ms_win_downlevel_kernel32_l2_1_0 --disable-api_ms_win_downlevel_normaliz_l1_1_0 --disable-api_ms_win_downlevel_ole32_l1_1_0 --disable-api_ms_win_downlevel_shell32_l1_1_0 --disable-api_ms_win_downlevel_shlwapi_l1_1_0 --disable-api_ms_win_downlevel_shlwapi_l2_1_0 --disable-api_ms_win_downlevel_user32_l1_1_0 --disable-api_ms_win_downlevel_version_l1_1_0 --disable-api_ms_win_dx_d3dkmt_l1_1_0 --disable-api_ms_win_eventing_classicprovider_l1_1_0 --disable-api_ms_win_eventing_consumer_l1_1_0 --disable-api_ms_win_eventing_controller_l1_1_0 --disable-api_ms_win_eventing_legacy_l1_1_0 --disable-api_ms_win_eventing_provider_l1_1_0 --disable-api_ms_win_eventlog_legacy_l1_1_0 --disable-api_ms_win_gaming_tcui_l1_1_0 --disable-api_ms_win_gdi_dpiinfo_l1_1_0 --disable-api_ms_win_mm_joystick_l1_1_0 \
+--disable-wmc --disable-wrc --disable-winmgmt --disable-wmic --disable-winebrowser \
+--without-xinput --without-xinput2 --without-xshape --without-xshm \
+--enable-bcrypt --enable-crypt32 \
+--disable-ieframe --disable-ieproxy \
+--disable-wlanapi --disable-wlanui \
+--disable-netio_sys --disable-widl --disable-jscript
 
 #
 #  Installation & initial cleanup inside stage 1
@@ -222,7 +221,7 @@ RUN cd ~/wine-dirs/wine-source \
 #           download and install the binary package from Trimble website
 #           cleanup filesystem as much as possible
 #
-   
+
 FROM ${BASE_IMAGE}:${TAG} as stage2
 ARG WINE_INSTALL_PREFIX
 ARG USER_NAME
@@ -269,7 +268,7 @@ ADD --chown=1001:${USER_GID} https://dl.tbcrelease.net/update/config/25.4.16/Tri
 # *** URL for v3.15 convertToRinex315 (PS 240908)
 # https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi
 # ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi /tmp
-# *** URL for v4.01 convertToRinex315 (PS 250809)
+# *** URL for v4.01 convertToRinex_4_0_1_8 (PS 250509)
 # https://trl.trimble.com/docushare/dsweb/Get/Document-1080498/convertToRinex_4_0_1_8.msi
 ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1080498/convertToRinex_4_0_1_8.msi /tmp
 RUN chmod 755 /tmp/download_mono.sh \
