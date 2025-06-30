@@ -90,7 +90,7 @@ See the [readme_original.md](readme_original.md) for more details regarding the 
 You can save the Docker image to a file
 ```
 docker save -o trm2rinex.tar trm2rinex:cli-light
-```docker image rm 925d947bf045
+```
 
 and transfer the `trm2rinex.tar` file to another computer using rsync, scp, etc.
 
@@ -208,7 +208,7 @@ ERROR: permission denied while trying to connect to the Docker daemon socket at 
 Check if your user is correctly added to the `docker` group
 https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue
 
-###
+### RPC failed
 #### Error
 While building the Docker image, you have the following error:
 ```commandline
