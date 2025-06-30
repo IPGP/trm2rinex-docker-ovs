@@ -72,7 +72,10 @@ and remove intermediate images
 ```
 docker image rm 925d947bf045
 ```
-
+Clean unfinished builds with:
+```
+docker builder prune
+```
 ## Usage
 
 ### Run the test file conversion
@@ -87,7 +90,8 @@ See the [readme_original.md](readme_original.md) for more details regarding the 
 You can save the Docker image to a file
 ```
 docker save -o trm2rinex.tar trm2rinex:cli-light
-```
+```docker image rm 925d947bf045
+
 and transfer the `trm2rinex.tar` file to another computer using rsync, scp, etc.
 
 On the other computer, load the Docker image with
