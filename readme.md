@@ -12,7 +12,9 @@ Maintainer of this fork: Pierre Sakic (sakic@ipgp.fr)
 See also the README of the original repository for more details: [readme_original.md](readme_original.md)
 
 ## Changelog
-* 2025-10-14: 
+* 2025-08-18:
+  Update the download links
+* 2025-01-14: 
   * Make the docker compatible ẃith a Debian 12.  
   * Make the docker compilation faster, no needs to clone the whole wine repository anymore.
 * 2025-01-03: better handling of the user & group ID
@@ -23,14 +25,10 @@ See also the README of the original repository for more details: [readme_origina
 * 2024-09-07: Change the wine repository for https://gitlab.winehq.org/wine/wine.git
 * 2024-09-06: Change for `ConvertToRinex` v3.15
 
-## Installation
 
-This memo is about installing the `trm2rinex` software in a Docker container.   
-The software is a Windows software, so it is run in a Wine environment.
+## Trimble official download pages
 
-### Trimble official download pages
-
-The needed software will be downloaded automatically when building the Docker. but here are the links for information:
+The necessary software will be downloaded automatically when building the Docker image. But here are the links for information:
 
 * [Main download page on Trimble support website](https://geospatial.trimble.com/en/support)
 * [Trimble RINEX Converter](https://trl.trimble.com/docushare/dsweb/Get/Document-1080499/Trimble%20Convert%20to%20Rinex%20-%204.0.1.9%20release%20notes.pdf)
@@ -39,7 +37,10 @@ The needed software will be downloaded automatically when building the Docker. b
     * [Direct download link](https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe)
 
 
+## Installation
 
+This memo is about installing the `trm2rinex` software in a Docker container.   
+The software is a Windows software, so it is run in a Wine environment.
 
 ### Prerequisite: install Docker 
 #### on Ubuntu
