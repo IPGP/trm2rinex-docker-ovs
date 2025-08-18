@@ -28,6 +28,19 @@ See also the README of the original repository for more details: [readme_origina
 This memo is about installing the `trm2rinex` software in a Docker container.   
 The software is a Windows software, so it is run in a Wine environment.
 
+### Trimble official download pages
+
+The needed software will be downloaded automatically when building the Docker. but here are the links for information:
+
+* [Main download page on Trimble support website](https://geospatial.trimble.com/en/support)
+* [Trimble RINEX Converter](https://trl.trimble.com/docushare/dsweb/Get/Document-1080499/Trimble%20Convert%20to%20Rinex%20-%204.0.1.9%20release%20notes.pdf)
+    * [Version 3.14](https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi) (the one used by the Docker)
+* [Trimble Office Configuration Utility](https://trl.trimble.com/docushare/dsweb/Get/Document-1052638/022516-694%20GEO-Trimble-Office-Configuration-Utility_USL_0523.pdf) (companion software)
+    * [Direct download link](https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe)
+
+
+
+
 ### Prerequisite: install Docker 
 #### on Ubuntu
 ```

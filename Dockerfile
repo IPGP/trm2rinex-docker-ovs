@@ -8,11 +8,15 @@
 # Tested with the following versions of trimble required binaries :
 # https://dl.trimble.com/osg/survey/gpsconfigfiles/21.9.27/trimblecfgupdate.exe
 # https://trl.trimble.com/dscgi/ds.py/Get/File-869391/convertToRinex314.msi
-#
+# 
+# New link updated, for now on the detail is in the README (PS250818)
+# # 
 # New version v3.15 (PS 240906)
 # https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi
+#
 # but new version v3.15 seems to crash (PS 241029)
 # Error: "t01dll assembly:<unknown assembly> type:<unknown type> member:(null)"
+#
 # Thus, we go for updated URL of the v3.14 (PS 241029)
 # https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi
 #
@@ -236,7 +240,10 @@ RUN ldconfig
 # Download mono installer
 COPY download_mono.sh /tmp/download_mono.sh
 
-ADD --chown=${USER_UID}:${USER_GID} https://dl.trimble.com/osg/survey/gpsconfigfiles/21.9.27/trimblecfgupdate.exe /tmp
+# New TrimbleCFGUpdate (250818)
+ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe /tmp
+# *** removed 250818
+# ADD --chown=${USER_UID}:${USER_GID} https://dl.trimble.com/osg/survey/gpsconfigfiles/21.9.27/trimblecfgupdate.exe /tmp
 # *** initial URL for v3.14 convertToRinex314
 # ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-869391/convertToRinex314.msi /tmp
 # *** new URL for v3.14 convertToRinex314 (PS 241029)
@@ -253,7 +260,7 @@ RUN useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --password
     && usermod -aG sudo "${USER_NAME}"
 
 USER ${USER_NAME}
-RUN wine /tmp/trimblecfgupdate.exe /s /x /b"Z:\\tmp" /v"/qn" 2>/dev/null \
+RUN wine /tmp/TrimbleCFGUpdate.exe /s /x /b"Z:\\tmp" /v"/qn" 2>/dev/null \
     && sleep ${DELAY_BETWEEN_INSTALL} \
     && wine cmd /c "msiexec /i Z:\\tmp\\TrimbleCFGUpdate.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null \
     && sleep ${DELAY_BETWEEN_INSTALL} \
