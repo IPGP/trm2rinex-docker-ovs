@@ -190,6 +190,12 @@ Give full access right to your `out` folder
 chmod 777 out
 ```
 
+#### Solution 4
+Make sure your `out` folder is empty (some old residual files previously converted might pollute it)
+```
+rm out/*
+```
+
 ### Change user and group ID
 This is a facultative step, but we recommend to change the `USER_UID` & `USER_GID` when building the docker
 
