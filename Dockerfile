@@ -56,7 +56,9 @@ ARG BASE_IMAGE="ubuntu"
 ARG TAG="noble"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
 #wine 9.12
-ARG WINE_TAG="b87f35898d22b90e36970e0b1fce1172ba64eb15"
+ARG WINE_TAG="wine-9.12"
+#ARG WINE_TAG="b87f35898d22b90e36970e0b1fce1172ba64eb15"
+
 # ********* LEGACY
 #ARG TAG="focal"
 #wine 8.0 rc5
@@ -111,18 +113,18 @@ RUN dpkg --add-architecture i386 \
 # *** Avoid the error RPC failed 
 RUN git config --global http.postBuffer 524288000  
 
-# Checkout Wine Release - OLD ORIGINAL STYLE, clone the whole repo => SLOW    
-RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
-    && cd ~/wine-dirs/wine-source \
-    && git checkout ${WINE_TAG}
-
+# *** Checkout Wine Release - NEW STYLE, clone only the needed branch => much FASTER
+RUN git clone --depth=1 --branch ${WINE_TAG} \
+    https://gitlab.winehq.org/wine/wine.git \
+    ~/wine-dirs/wine-source \
+    && cd ~/wine-dirs/wine-source
 
 # ********* LEGACY
-# *** Checkout Wine Release - NEW STYLE, clone only the needed branch => much FASTER
-# RUN git clone --depth=1 --branch ${WINE_TAG} \
-#    https://gitlab.winehq.org/wine/wine.git \
-#    ~/wine-dirs/wine-source \
-#    && cd ~/wine-dirs/wine-source
+
+# Checkout Wine Release - OLD ORIGINAL STYLE, clone the whole repo => SLOW    
+# RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+#     && cd ~/wine-dirs/wine-source \
+#     && git checkout ${WINE_TAG}
 #
 # *** Checkout Wine Release - OLD STYLE - with WINE_COMMIT var, clone the whole repo => SLOW
 # RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
