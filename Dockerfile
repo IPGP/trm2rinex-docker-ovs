@@ -1,4 +1,14 @@
 #
+# ************************************************************************************
+# trm2rinex-docker-ovs
+# IPGP-OVS's maintened fork of the Docker+Wine wrapper for Trimble convertToRinex tool
+#
+# https://github.com/IPGP/trm2rinex-docker-ovs
+#
+# See README.md for changelog
+# https://github.com/IPGP/trm2rinex-docker-ovs/blob/main/readme.md
+# ************************************************************************************
+#
 # This Dockerfile build a small docker image packaging a minimal wine setup
 # that allows running the Trimble "convertToRinex" utility in command line
 # mode on an x86 Linux based system
@@ -44,16 +54,18 @@
 
 ARG BASE_IMAGE="ubuntu"
 ARG TAG="noble"
-#ARG TAG="focal"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
-#wine 8.0 rc5
-#ARG WINE_TAG="eb3355bcf801b5484aa1ca968fdb051fe5a94bb5"
 #wine 9.12
 ARG WINE_TAG="b87f35898d22b90e36970e0b1fce1172ba64eb15"
+# ********* LEGACY
+#ARG TAG="focal"
+#wine 8.0 rc5
+#ARG WINE_TAG="eb3355bcf801b5484aa1ca968fdb051fe5a94bb5"
 #wine 9.0 rc5
 #ARG WINE_TAG="ff1642f32cfcd2efd8d60be1a8cb432d393587c7"
 #wine 6.22
 #ARG WINE_TAG="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
+# ********* LEGACY
 ARG USER_NAME=trm2rinex
 ARG USER_PASSWD=trm2rinex
 ARG USER_UID=1000
@@ -96,10 +108,31 @@ RUN dpkg --add-architecture i386 \
     && DEBIAN_FRONTEND="noninteractive" apt-get clean -y \        
     && rm -rf /var/lib/apt/lists/* 
   
-# Checkout Wine Release 6.22    
-RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
-    && cd ~/wine-dirs/wine-source \
-    && git checkout ${WINE_TAG}
+# *** Avoid the error RPC failed 
+RUN git config --global http.postBuffer 524288000  
+
+# *** Checkout Wine Release - NEW STYLE, clone only the needed branch => much FASTER
+RUN git clone --depth=1 --branch ${WINE_TAG} \
+    https://gitlab.winehq.org/wine/wine.git \
+    ~/wine-dirs/wine-source \
+    && cd ~/wine-dirs/wine-source
+
+# ********* LEGACY
+# Checkout Wine Release 6.22 - OLD ORIGINAL STYLE, clone the whole repo => SLOW    
+# RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+#     && cd ~/wine-dirs/wine-source \
+#     && git checkout ${WINE_TAG}
+# *** Checkout Wine Release 6.22 - OLD STYLE - with WINE_COMMIT var, clone the whole repo => SLOW
+# RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+#     && cd ~/wine-dirs/wine-source \
+#     && git checkout ${WINE_COMMIT}
+#
+# *** Checkout Wine Release 6.22 - alternative OLD STYLE => FASTER, but still not optimal (still 2 download)
+# RUN git clone  --depth 1 https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+#   && cd ~/wine-dirs/wine-source \
+#   && git fetch --depth=1 origin ${WINE_COMMIT} \
+#   && git checkout ${WINE_COMMIT}
+# ********* LEGACY
 
 # Install more build prerequisites
 RUN dpkg --add-architecture i386 \
@@ -179,19 +212,34 @@ RUN ldconfig
 # Download mono installer
 COPY download_mono.sh /tmp/download_mono.sh
 
-#PATRICE
-#RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
-#RUN sed -i 's/60000/67500/' /etc/login.defs
-
-ADD --chown=${USER_UID}:${USER_GID} https://tbcrelease.blob.core.windows.net/update/config/24.6.16/TrimbleCFGUpdate.exe /tmp
+# ********* URL OK
+ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe /tmp
 ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1081326/convertToRinex_4.0.1.9.msi /tmp
+# ********* URL OK
+
+# ********* LEGACY
+# *** TrimbleCFGUpdate PU
+# ADD --chown=${USER_UID}:${USER_GID} https://tbcrelease.blob.core.windows.net/update/config/24.6.16/TrimbleCFGUpdate.exe /tmp
+# *** last 3.14
+# ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi /tmp
+# *** removed 250818
+# ADD --chown=${USER_UID}:${USER_GID} https://dl.trimble.com/osg/survey/gpsconfigfiles/21.9.27/trimblecfgupdate.exe /tmp
+# *** initial URL for v3.14 convertToRinex314
+# ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/dscgi/ds.py/Get/File-869391/convertToRinex314.msi /tmp
+# *** new URL for v3.14 convertToRinex314 (PS 241029)
+# https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi
+# *** URL for v3.15 convertToRinex315 (PS 240908)
+# https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi
+# ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1073640/convertToRinexv3.15.0.msi /tmp
+# ********* LEGACY
 
 RUN chmod 755 /tmp/download_mono.sh \
     && /tmp/download_mono.sh "$([[ "$(${WINE_INSTALL_PREFIX}/bin/wine --version)" =~ .*([0-9]{1}.[0-9]{2}) ]] &&  echo ${BASH_REMATCH[1]})" 
     
 RUN useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --password "$(openssl passwd -1 -salt "$(openssl rand -base64 6)" ${USER_PASSWD})" --create-home --home-dir "/home/${USER_NAME}" "${USER_NAME}" \
     && usermod -aG sudo "${USER_NAME}"
-#PATRICE
+
+# *** PU_MOD
 #RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
 #RUN sed -i 's/60000/67500/' /etc/login.defs
 
@@ -203,9 +251,16 @@ RUN wine cmd /c "msiexec /i Z:\\tmp\\TrimbleCFGUpdate.msi ProductLanguage=\"1033
     && sleep ${DELAY_BETWEEN_INSTALL}
 RUN wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex_4.0.1.9.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
 
+# ********* LEGACY
+#   line for v3.14
+#   && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex314.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
+#   line for v3.15
+#   && wine cmd /c "msiexec /i Z:\\tmp\\convertToRinexv3.15.0.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
+# ********* LEGACY
 USER root
 COPY clean.sh /home/${USER_NAME}/clean.sh
 RUN chmod 755 /home/${USER_NAME}/clean.sh
+# *** PU DISABLE
 #RUN rm -rf /home/${USER_NAME}/.wine/drive_c/windows/Installer \
 #    && rm -rf /tmp/* \
 #    && /home/${USER_NAME}/clean.sh ${USER_NAME} ${WINE_INSTALL_PREFIX}
@@ -227,7 +282,7 @@ SHELL ["/bin/bash", "-c"]
 
 COPY --from=stage2 ${WINE_INSTALL_PREFIX} ${WINE_INSTALL_PREFIX}
 
-#PATRICE
+# *** PU_MOD
 #RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
 #RUN sed -i 's/60000/67500/' /etc/login.defs
 
@@ -248,7 +303,7 @@ RUN dpkg --add-architecture i386 \
     && DEBIAN_FRONTEND="noninteractive" apt-get clean -y \        
     && rm -rf /var/lib/apt/lists/* 
 
-#PATRICE
+# *** PU_MOD
 #RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
 #RUN sed -i 's/60000/67500/' /etc/login.defs
 
