@@ -219,13 +219,13 @@ RUN ldconfig
 COPY download_mono.sh /tmp/download_mono.sh
 
 # ********* URL OK
-ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.8.3/TrimbleCFGUpdate.exe /tmp
+ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe /tmp
 ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1081326/convertToRinex_4.0.1.9.msi /tmp
 # ********* URL OK
 
 # ********* LEGACY
 # *** removed 251125
-# ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe /tmp
+# ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.8.3/TrimbleCFGUpdate.exe /tmp
 # *** TrimbleCFGUpdate PU
 # ADD --chown=${USER_UID}:${USER_GID} https://tbcrelease.blob.core.windows.net/update/config/24.6.16/TrimbleCFGUpdate.exe /tmp
 # *** last 3.14
