@@ -12,10 +12,13 @@ Maintainer of this fork: Pierre Sakic (sakic@ipgp.fr)
 See also the README of the original repository for more details: [readme_original.md](readme_original.md)
 
 ## Changelog
+* 2025-11-25:
+  Make the docker compatible with `ConvertToRinex` v4!
+  Thanks to Patrice Ulrich (EOST/ITES)
 * 2025-08-18:
   Update the download links
 * 2025-01-14: 
-  * Make the docker compatible ẃith a Debian 12.  
+  * Make the docker compatible with a Debian 12.  
   * Make the docker compilation faster, no needs to clone the whole wine repository anymore.
 * 2025-01-03: better handling of the user & group ID
 * 2024-10-29: 
