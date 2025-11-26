@@ -219,11 +219,13 @@ RUN ldconfig
 COPY download_mono.sh /tmp/download_mono.sh
 
 # ********* URL OK
-ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe /tmp
+ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.8.3/TrimbleCFGUpdate.exe /tmp
 ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1081326/convertToRinex_4.0.1.9.msi /tmp
 # ********* URL OK
 
 # ********* LEGACY
+# *** removed 251125
+# ADD --chown=${USER_UID}:${USER_GID} https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe /tmp
 # *** TrimbleCFGUpdate PU
 # ADD --chown=${USER_UID}:${USER_GID} https://tbcrelease.blob.core.windows.net/update/config/24.6.16/TrimbleCFGUpdate.exe /tmp
 # *** last 3.14
@@ -249,13 +251,14 @@ RUN useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --password
 #RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
 #RUN sed -i 's/60000/67500/' /etc/login.defs
 
-
+# ********* URL OK
 USER ${USER_NAME}
 RUN wine /tmp/TrimbleCFGUpdate.exe /s /x /b"Z:\\tmp" /v"/qn" 2>/dev/null \
     && sleep ${DELAY_BETWEEN_INSTALL} 
 RUN wine cmd /c "msiexec /i Z:\\tmp\\TrimbleCFGUpdate.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null \
     && sleep ${DELAY_BETWEEN_INSTALL}
 RUN wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex_4.0.1.9.msi ProductLanguage=\"1033\" /quiet" 2>/dev/null
+# ********* URL OK
 
 # ********* LEGACY
 #   line for v3.14
