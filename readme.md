@@ -35,9 +35,11 @@ The necessary software will be downloaded automatically when building the Docker
 
 * [Main download page on Trimble support website](https://geospatial.trimble.com/en/support)
 * [Trimble RINEX Converter](https://trl.trimble.com/docushare/dsweb/Get/Document-1080499/Trimble%20Convert%20to%20Rinex%20-%204.0.1.9%20release%20notes.pdf)
-    * [Version 3.14](https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi) (the one used by the Docker)
+    * [Version 4.0.1.9](https://trl.trimble.com/docushare/dsweb/Get/Document-1081326/convertToRinex_4.0.1.9.msi) 
+    * [Version 3.14](https://trl.trimble.com/dscgi/ds.py/Get/File-942121/convertToRinex314.msi) (the previous version formerly used by the Docker)
 * [Trimble Office Configuration Utility](https://trl.trimble.com/docushare/dsweb/Get/Document-1052638/022516-694%20GEO-Trimble-Office-Configuration-Utility_USL_0523.pdf) (companion software)
-    * [Direct download link](https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe)
+    * [Direct download link (25/08)](https://dl.tbcrelease.net/update/config/25.8.3/TrimbleCFGUpdate.exe)
+    * [Direct download link (25/04)](https://dl.tbcrelease.net/update/config/25.4.16/TrimbleCFGUpdate.exe)
 
 
 ## Installation
