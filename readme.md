@@ -13,7 +13,7 @@ See also the README of the original repository for more details: [readme_origina
 
 ## Changelog
 * 2025-11-25:
-  Make the docker compatible with `ConvertToRinex` v4!
+  Make the docker compatible with `ConvertToRinex` v4!  
   Thanks to Patrice Ulrich (EOST/ITES)
 * 2025-08-18:
   Update the download links
