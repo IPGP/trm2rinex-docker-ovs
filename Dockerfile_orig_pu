@@ -54,11 +54,11 @@ ARG WINE_TAG="b87f35898d22b90e36970e0b1fce1172ba64eb15"
 #ARG WINE_TAG="ff1642f32cfcd2efd8d60be1a8cb432d393587c7"
 #wine 6.22
 #ARG WINE_TAG="986254d6c17ee1e5fb3aed6effcf2766bf1e787e"
-ARG USER_NAME=trm2rinex
-ARG USER_PASSWD=trm2rinex
-ARG USER_UID=1000
-ARG USER_GID=100
-ARG MAKE_JN=8
+ARG USER_NAME=patrice
+ARG USER_PASSWD=patrice
+ARG USER_UID=67400
+ARG USER_GID=67400
+ARG MAKE_JN=24
 ARG DELAY_BETWEEN_INSTALL=10
 
 #
@@ -180,8 +180,8 @@ RUN ldconfig
 COPY download_mono.sh /tmp/download_mono.sh
 
 #PATRICE
-#RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
-#RUN sed -i 's/60000/67500/' /etc/login.defs
+RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
+RUN sed -i 's/60000/67500/' /etc/login.defs
 
 ADD --chown=${USER_UID}:${USER_GID} https://tbcrelease.blob.core.windows.net/update/config/24.6.16/TrimbleCFGUpdate.exe /tmp
 ADD --chown=${USER_UID}:${USER_GID} https://trl.trimble.com/docushare/dsweb/Get/Document-1081326/convertToRinex_4.0.1.9.msi /tmp
@@ -192,8 +192,8 @@ RUN chmod 755 /tmp/download_mono.sh \
 RUN useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --password "$(openssl passwd -1 -salt "$(openssl rand -base64 6)" ${USER_PASSWD})" --create-home --home-dir "/home/${USER_NAME}" "${USER_NAME}" \
     && usermod -aG sudo "${USER_NAME}"
 #PATRICE
-#RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
-#RUN sed -i 's/60000/67500/' /etc/login.defs
+RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
+RUN sed -i 's/60000/67500/' /etc/login.defs
 
 
 USER ${USER_NAME}
@@ -228,8 +228,8 @@ SHELL ["/bin/bash", "-c"]
 COPY --from=stage2 ${WINE_INSTALL_PREFIX} ${WINE_INSTALL_PREFIX}
 
 #PATRICE
-#RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
-#RUN sed -i 's/60000/67500/' /etc/login.defs
+RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
+RUN sed -i 's/60000/67500/' /etc/login.defs
 
 
 
@@ -249,8 +249,8 @@ RUN dpkg --add-architecture i386 \
     && rm -rf /var/lib/apt/lists/* 
 
 #PATRICE
-#RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
-#RUN sed -i 's/60000/67500/' /etc/login.defs
+RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
+RUN sed -i 's/60000/67500/' /etc/login.defs
 
 
       
