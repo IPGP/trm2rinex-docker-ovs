@@ -111,23 +111,25 @@ RUN dpkg --add-architecture i386 \
 # *** Avoid the error RPC failed 
 RUN git config --global http.postBuffer 524288000  
 
-# *** Checkout Wine Release - NEW STYLE, clone only the needed branch => much FASTER
-RUN git clone --depth=1 --branch ${WINE_TAG} \
-    https://gitlab.winehq.org/wine/wine.git \
-    ~/wine-dirs/wine-source \
-    && cd ~/wine-dirs/wine-source
+# Checkout Wine Release - OLD ORIGINAL STYLE, clone the whole repo => SLOW    
+RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
+    && cd ~/wine-dirs/wine-source \
+    && git checkout ${WINE_TAG}
+
 
 # ********* LEGACY
-# Checkout Wine Release 6.22 - OLD ORIGINAL STYLE, clone the whole repo => SLOW    
-# RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
-#     && cd ~/wine-dirs/wine-source \
-#     && git checkout ${WINE_TAG}
-# *** Checkout Wine Release 6.22 - OLD STYLE - with WINE_COMMIT var, clone the whole repo => SLOW
+# *** Checkout Wine Release - NEW STYLE, clone only the needed branch => much FASTER
+# RUN git clone --depth=1 --branch ${WINE_TAG} \
+#    https://gitlab.winehq.org/wine/wine.git \
+#    ~/wine-dirs/wine-source \
+#    && cd ~/wine-dirs/wine-source
+#
+# *** Checkout Wine Release - OLD STYLE - with WINE_COMMIT var, clone the whole repo => SLOW
 # RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
 #     && cd ~/wine-dirs/wine-source \
 #     && git checkout ${WINE_COMMIT}
 #
-# *** Checkout Wine Release 6.22 - alternative OLD STYLE => FASTER, but still not optimal (still 2 download)
+# *** Checkout Wine Release - alternative OLD STYLE => FASTER, but still not optimal (still 2 download)
 # RUN git clone  --depth 1 https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
 #   && cd ~/wine-dirs/wine-source \
 #   && git fetch --depth=1 origin ${WINE_COMMIT} \
