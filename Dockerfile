@@ -56,7 +56,7 @@ ARG BASE_IMAGE="ubuntu"
 ARG TAG="noble"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
 # ****** Wine tag 
-# * NB: with NEW clone mode, Use tag's full name, not hash
+# * NB: with NEW clone style, Use tag's full name, not hash
 # wine 9.12
 ARG WINE_TAG="wine-9.12"
 
@@ -133,7 +133,7 @@ RUN git clone --depth=1 --branch ${WINE_TAG} \
 #     && cd ~/wine-dirs/wine-source \
 #     && git checkout ${WINE_COMMIT}
 #
-# *** Checkout Wine Release - alternative OLD STYLE => FASTER, but still not optimal (still 2 download)
+# *** Checkout Wine Release - alternative OLD STYLE => FASTER, but still not optimal (still 2 downloads)
 # RUN git clone  --depth 1 https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
 #   && cd ~/wine-dirs/wine-source \
 #   && git fetch --depth=1 origin ${WINE_COMMIT} \
@@ -160,7 +160,6 @@ RUN dpkg --add-architecture i386 \
 RUN cd ~/wine-dirs/wine-source \
 && ./configure --prefix=${WINE_INSTALL_PREFIX} --disable-tests --without-capi --without-alsa --without-gphoto --without-hal --without-dbus --without-oss --without-quicktime --without-v4l2 --without-mingw --without-gstreamer --without-coreaudio --without-cups --without-sane --without-udev --without-xrandr --without-xinerama --without-pcap --without-krb5 --without-openal --without-opencl --without-opengl --without-pulse --without-vkd3d --without-vulkan --without-gssapi --without-x --without-usb --without-fontconfig --without-freetype --without-osmesa --without-xcomposite --without-xcursor --without-xfixes --without-xxf86vm \
 --without-xinput --without-xinput2 --without-xshape --without-xshm 
-
 
 #
 #  Installation & initial cleanup inside stage 1
@@ -269,6 +268,7 @@ RUN wine cmd /c "msiexec /i Z:\\tmp\\convertToRinex_4.0.1.9.msi ProductLanguage=
 USER root
 COPY clean.sh /home/${USER_NAME}/clean.sh
 RUN chmod 755 /home/${USER_NAME}/clean.sh
+
 # *** PU DISABLE
 #RUN rm -rf /home/${USER_NAME}/.wine/drive_c/windows/Installer \
 #    && rm -rf /tmp/* \
@@ -295,8 +295,6 @@ COPY --from=stage2 ${WINE_INSTALL_PREFIX} ${WINE_INSTALL_PREFIX}
 #RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
 #RUN sed -i 's/60000/67500/' /etc/login.defs
 
-
-
 # Install prerequisites
 RUN dpkg --add-architecture i386 \
     && apt-get update \
@@ -316,8 +314,6 @@ RUN dpkg --add-architecture i386 \
 #RUN sed -i 's/users:x:100:/users:x:67400:/' /etc/group
 #RUN sed -i 's/60000/67500/' /etc/login.defs
 
-
-      
 COPY entrypoint.sh /usr/bin/entrypoint
 RUN chmod 755 /usr/bin/entrypoint
 COPY --from=stage2 --chown=${USER_UID}:${USER_GID} /home/${USER_NAME}/.wine /home/${USER_NAME}/.wine
