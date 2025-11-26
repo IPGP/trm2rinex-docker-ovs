@@ -55,11 +55,14 @@
 ARG BASE_IMAGE="ubuntu"
 ARG TAG="noble"
 ARG WINE_INSTALL_PREFIX="/opt/wine"
-#wine 9.12
+# ****** Wine tag 
+# * NB: with NEW clone mode, Use tag's full name, not hash
+# wine 9.12
 ARG WINE_TAG="wine-9.12"
-#ARG WINE_TAG="b87f35898d22b90e36970e0b1fce1172ba64eb15"
 
 # ********* LEGACY
+#wine 9.12
+#ARG WINE_TAG="b87f35898d22b90e36970e0b1fce1172ba64eb15"
 #ARG TAG="focal"
 #wine 8.0 rc5
 #ARG WINE_TAG="eb3355bcf801b5484aa1ca968fdb051fe5a94bb5"
@@ -120,8 +123,7 @@ RUN git clone --depth=1 --branch ${WINE_TAG} \
     && cd ~/wine-dirs/wine-source
 
 # ********* LEGACY
-
-# Checkout Wine Release - OLD ORIGINAL STYLE, clone the whole repo => SLOW    
+# *** Checkout Wine Release - OLD ORIGINAL STYLE, clone the whole repo => SLOW    
 # RUN git clone https://gitlab.winehq.org/wine/wine.git ~/wine-dirs/wine-source \
 #     && cd ~/wine-dirs/wine-source \
 #     && git checkout ${WINE_TAG}
