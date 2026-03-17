@@ -128,6 +128,14 @@ docker tag <IMAGE ID> trm2rinex:cli-light
 
 ## Troubleshooter
 
+### Issue about permission denied
+#### Error
+```
+ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Head "http://%2Fvar%2Frun%2Fdocker.sock/_ping": dial unix /var/run/docker.sock: connect: permission denied
+```
+#### Solution
+Create Docker group (see above) and reboot your computer
+
 ### Issue about removing folders during Docker compilation
 #### Error
 In the log, at the step 25/65, you have:
